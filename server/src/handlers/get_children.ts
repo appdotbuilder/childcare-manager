@@ -1,8 +1,16 @@
+import { db } from '../db';
+import { childrenTable } from '../db/schema';
 import { type Child } from '../schema';
 
-export async function getChildren(): Promise<Child[]> {
-    // This is a placeholder declaration! Real code should be implemented here.
-    // The goal of this handler is fetching all children from the database.
-    // Should query childrenTable and return all child records.
-    return [];
-}
+export const getChildren = async (): Promise<Child[]> => {
+  try {
+    const results = await db.select()
+      .from(childrenTable)
+      .execute();
+
+    return results;
+  } catch (error) {
+    console.error('Failed to fetch children:', error);
+    throw error;
+  }
+};
